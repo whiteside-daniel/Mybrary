@@ -91,17 +91,17 @@ router.delete('/:id/delete', async (req, res) => {
 
 //Create author route
 router.post('/', async (req, res) => {
-    const author = new Author({
+    const author = await new Author({
         name: req.body.name
     })
     try {
         const newAuthor = await author.save()
         res.redirect(`authors/${newAuthor.id}`)
     } catch {
-        res.render('authors/new'), {
+        res.render('authors/new', {
             author: author,
             errorMessage: 'Error creating author'
-        }
+        })
     }
 })
 
