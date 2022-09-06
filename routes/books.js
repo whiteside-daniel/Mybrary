@@ -40,16 +40,16 @@ router.get('/new', async (req, res) => {
 
 //Create book route
 router.post('/', async (req, res) => {
-    const book = new Book({
-        title: req.body.title,
-        author: req.body.author,
-        publishedDate: new Date(req.body.publishDate),
-        pageCount: req.body.pageCount,
-        description: req.body.description
-    })
-    saveCover(book, req.body.cover)
-
+    let book
     try {
+        book = new Book({
+            title: req.body.title,
+            author: req.body.author,
+            publishedDate: new Date(req.body.publishDate),
+            pageCount: req.body.pageCount,
+            description: req.body.description
+        })
+        saveCover(book, req.body.cover)
         const newBook = await book.save()
         res.redirect(`books/${newBook.id}`)
     } catch {
